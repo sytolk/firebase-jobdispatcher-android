@@ -67,6 +67,13 @@ public final class GooglePlayReceiver extends ExternalReceiver {
         }
     }
 
+    public void onInitializeTasks() {
+        /*
+         * When the app is being updated, then all jobs are cleared in the GcmNetworkManager.
+         * TODO reschedule jobs
+         */
+    }
+
     @Override
     public final int onStartCommand(Intent intent, int flags, int startId) {
         try {
@@ -82,6 +89,7 @@ public final class GooglePlayReceiver extends ExternalReceiver {
                 executeJob(prepareJob(intent));
                 return START_NOT_STICKY;
             } else if (ACTION_INITIALIZE.equals(action)) {
+                onInitializeTasks();
                 return START_NOT_STICKY;
             }
 
